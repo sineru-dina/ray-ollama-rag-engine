@@ -1,8 +1,8 @@
 # RAG LLM: Research Paper Explorer
 
-A modular Retrieval-Augmented Generation (RAG) pipeline built with **Ray**, **LangChain**, and **Ollama**. This project allows you to download, ingest, and chat with AI research papers (like Mamba and Chronos) using a local Mistral model.
+A modular Retrieval Augmented Generation (RAG) pipeline built with **Ray**, **LangChain**, and **Ollama**. This project allows you to download, ingest, and chat with AI research papers (like Mamba and Chronos) using a local Mistral model.
 
-## 🚀 Key Features
+## Key Features
 
 - **Distributed Data Ingestion**: Uses Ray to parallelize PDF parsing and text chunking.
 - **Local LLM & Embeddings**: Powered by Ollama (Mistral & Nomic-Embed-Text) for 100% local privacy.
@@ -11,7 +11,7 @@ A modular Retrieval-Augmented Generation (RAG) pipeline built with **Ray**, **La
 
 ---
 
-## 📂 File Breakdown
+## File Breakdown
 
 This project follows a 4-step sequential pipeline:
 
@@ -19,7 +19,6 @@ This project follows a 4-step sequential pipeline:
 **Purpose**: Parallel high-speed data acquisition.
 - Uses **Ray** to dispatch multiple download tasks simultaneously.
 - Downloads target research papers (e.g., Mamba, Chronos) from ArXiv to the local `./data` directory.
-- Ensuring you have fresh, local copies of the documents for the ingestion phase.
 
 ### 2. [2_ingest_data.py]
 **Purpose**: Building the "Search Intelligence" (Vector Database).
@@ -43,7 +42,7 @@ This project follows a 4-step sequential pipeline:
 
 ---
 
-## 🛠️ Setup & Installation
+## Setup & Installation
 
 ### 1. Prerequisites
 - **Ollama**: [Download Ollama](https://ollama.ai/) and pull the required models:
@@ -65,7 +64,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🏃 Run the Pipeline
+## Run the Pipeline
 
 Follow these steps in order:
 
@@ -97,3 +96,4 @@ streamlit run 4_streamlit_app.py
 - **Models**: You can change the models in `3_serve_rag.py` (default: `mistral`) and `2_ingest_data.py` (default: `nomic-embed-text`).
 - **Chunking**: Adjust `chunk_size` and `chunk_overlap` in `2_ingest_data.py` to tune retrieval accuracy.
 - **Ray Cluster**: By default, Ray runs locally on all available cores.
+
