@@ -1,0 +1,51 @@
+# ==========================================
+# Python & Environment
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+rag_env/
+venv/
+env/
+.env
+.ipynb_checkpoints/
+
+# ==========================================
+# RAG Data & Vector Databases
+# ==========================================
+# We ignore the raw PDFs so users can download fresh versions via the script
+data/
+*.pdf
+
+# We strictly ignore the ChromaDB directory. 
+# SQLite and Parquet files are binary and should never be version-controlled.
+chroma_db/
+*.sqlite3
+*.parquet
+
+# ==========================================
+# Ray Orchestration Logs
+# ==========================================
+# Ray generates local temporary files and crash logs during distributed execution
+/tmp/ray/
+ray_results/
+core.*
+python_*.log
+
+# ==========================================
+# Streamlit Specifics
+# ==========================================
+.streamlit/secrets.toml
+.streamlit/config.toml
+
+# ==========================================
+# OS & IDE Files
+# ==========================================
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*.bak
+*.log

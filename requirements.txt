@@ -1,0 +1,20 @@
+# Orchestration & Serving
+ray[serve]==2.54.0
+fastapi==0.134.0
+uvicorn==0.41.0
+
+# RAG & LLM Framework
+langchain==1.2.10
+langchain-community==0.4.1
+langchain-core==1.2.16
+langchain-text-splitters==1.1.1
+
+# Vector Database
+chromadb==1.5.2
+
+# Data Parsing & UI
+pypdf==6.7.4
+PyMuPDF==1.27.1
+requests==2.32.5
+streamlit==1.54.0
+python-dotenv==1.2.1
