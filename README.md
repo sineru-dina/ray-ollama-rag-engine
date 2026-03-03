@@ -56,7 +56,7 @@ This project follows a 4-step sequential pipeline:
 ```bash
 # Create and activate virtual environment
 python -m venv rag_env
-source rag_env/bin/activate  # On Windows: rag_env\Scripts\activate
+source rag_env/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
@@ -96,4 +96,5 @@ streamlit run 4_streamlit_app.py
 - **Models**: You can change the models in `3_serve_rag.py` (default: `mistral`) and `2_ingest_data.py` (default: `nomic-embed-text`).
 - **Chunking**: Adjust `chunk_size` and `chunk_overlap` in `2_ingest_data.py` to tune retrieval accuracy.
 - **Ray Cluster**: By default, Ray runs locally on all available cores.
+
 
