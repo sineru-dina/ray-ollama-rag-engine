@@ -33,13 +33,15 @@ def process_document(file_path: str):
         if len(text) < 100:
             continue
 
-        # Detect garbage: lack of spaces in a long string is a red flag
+        # Detect garbage: lack of spaces in a long string is a red flag (e.g., base64)
+        # Also, very high symbol/digit density can be noisy
         space_count = text.count(" ")
         if space_count / len(text) > 0.1:  # At least 10% spaces
             clean_splits.append(split)
         else:
-            print(f"[{file_path}] Dropped noisy chunk (Potential base64/garbage).")
-
+            print(
+                f"[{file_path}] Dropped noisy chunk (Potential base64/garbage). length: {len(text)}"
+            )
     return clean_splits
 
 
@@ -88,3 +90,47 @@ Chroma.from_documents(
 )
 
 print("All documents embedded and ingested safely!")
+
+
+# import ray
+# from langchain_community.document_loaders import PyPDFLoader
+# from langchain_text_splitters import RecursiveCharacterTextSplitter
+# from langchain_community.embeddings import OllamaEmbeddings
+# from langchain_community.vectorstores import Chroma
+
+# # Initialize Ray for local distributed computing
+# ray.init()
+
+# @ray.remote
+# def process_and_embed_document(file_path: str, persist_dir: str):
+#     print("Loading document...")
+#     loader = PyPDFLoader(file_path)
+#     docs = loader.load()
+
+#     # Deep chunking strategy: preserve paragraphs and overlapping context
+#     text_splitter = RecursiveCharacterTextSplitter(
+#         chunk_size=1000,
+#         chunk_overlap=200,
+#         separators=["\n\n", "\n", " ", ""]
+#     )
+#     splits = text_splitter.split_documents(docs)
+
+#     print(f"Created {len(splits)} semantic chunks. Generating embeddings...")
+
+#     # Connect to the local Docker Ollama instance
+#     embeddings = OllamaEmbeddings(
+#         model="nomic-embed-text",
+#         base_url="http://localhost:11434"
+#     )
+
+#     # Persist vectors to ChromaDB
+#     Chroma.from_documents(
+#         documents=splits,
+#         embedding=embeddings,
+#         persist_directory=persist_dir
+#     )
+#     print("Ingestion complete. Vector database saved.")
+
+# # Execute the Ray task
+# persist_directory = "./chroma_db"
+# ray.get(process_and_embed_document.remote("./data/chronos_paper.pdf", persist_directory))

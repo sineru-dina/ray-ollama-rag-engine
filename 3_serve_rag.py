@@ -4,6 +4,7 @@ from langchain_community.llms import Ollama
 from langchain_community.embeddings import OllamaEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_core.prompts import PromptTemplate
+import os
 
 # 1. Initialize FastAPI app for routing
 app = FastAPI()
@@ -21,8 +22,7 @@ class RAGService:
         self.vector_db = Chroma(
             persist_directory="./chroma_db", embedding_function=embeddings
         )
-        # Increased k=5 for better context coverage
-        self.retriever = self.vector_db.as_retriever(search_kwargs={"k": 5})
+        self.retriever = self.vector_db.as_retriever(search_kwargs={"k": 10})
 
         # Initialize the Parametric Memory (Generator)
         self.llm = Ollama(
@@ -55,7 +55,11 @@ class RAGService:
             context = "\n---\n".join([doc.page_content for doc in docs])
             prompt = self.prompt_template.format(context=context, question=query)
             response = self.llm.invoke(prompt)
-            sources = [doc.metadata.get("page") for doc in docs]
+            # Return both filename and page as sources
+            sources = [
+                f"{os.path.basename(doc.metadata.get('source', 'unknown'))} (Page {doc.metadata.get('page', '?')})"
+                for doc in docs
+            ]
         else:
             prompt = f"Question: {query}\nAnswer:"
             response = self.llm.invoke(prompt)
