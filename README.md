@@ -1,6 +1,6 @@
 # RAG LLM: Research Paper Explorer
 
-A modular Retrieval Augmented Generation (RAG) pipeline built with **Ray**, **LangChain**, and **Ollama**. This project allows you to download, ingest, and chat with AI research papers (like Mamba and Chronos) using a local Mistral model.
+A modular Retrieval Augmented Generation (RAG) pipeline built with **Ray**, **LangChain**, and **Ollama**. This project allows to download, ingest, and chat with AI research papers (like Mamba and Chronos) using a local Mistral model.
 
 ## Key Features
 
